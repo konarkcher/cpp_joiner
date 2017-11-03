@@ -1,10 +1,6 @@
 import os
 
 
-def get_name(line):
-    return line[line.find('"') + 1:line.rfind('"')]
-
-
 def get_includes(file_name, standard_includes, file_order):
     with open(file_name, 'r') as file:
         for line in file:
@@ -12,7 +8,7 @@ def get_includes(file_name, standard_includes, file_order):
                 if '<' in line:
                     standard_includes.add(line)
                 else:
-                    my_include = get_name(line)
+                    my_include = line[line.find('"') + 1:line.rfind('"')]
                     if my_include not in file_order:
                         get_includes(my_include, standard_includes, file_order)
 
