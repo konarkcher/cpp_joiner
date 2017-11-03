@@ -24,16 +24,12 @@ def get_includes(file_name, standard_includes, file_order):
             get_includes(cpp_file, standard_includes, file_order)
 
 
-def exclude_line(line):
-    return line.startswith('#include') or line.startswith('#pragma once')
-
-
 def copy_without_includes(file_name, target_file):
     target_file.write('// {}\n\n'.format(file_name))
 
     with open(file_name, 'r') as source:
         for line in source:
-            if not exclude_line(line):
+            if not line.startswith(('#include', '#pragma once')):
                 target_file.write(line)
 
         target_file.write('\n\n')
